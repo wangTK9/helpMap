@@ -23,7 +23,7 @@ class SOSPage extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          "Đây là trang sos",
+          "Đây là trang SOS",
           style: TextStyle(fontSize: 20),
         ),
       ),
