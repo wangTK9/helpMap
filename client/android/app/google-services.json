@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "850498813453",
+    "project_id": "vhuhepls",
+    "storage_bucket": "vhuhepls.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850498813453:android:b645cadb2e0d0c35e39f44",
+        "android_client_info": {
+          "package_name": "com.example.vhu_helps_map"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850498813453-feasrh8n33j5cbd89iv9p5k0luudgpod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vhu_helps_map",
+            "certificate_hash": "f9816d72741dbe29edee3b72d389387a4e0392a2"
+          }
+        },
+        {
+          "client_id": "850498813453-l70iuccko80g10cnblds7sbrnipgo7v2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUlv5zJWyenjHSUn-huBPgv4VDA3h39Is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850498813453-l70iuccko80g10cnblds7sbrnipgo7v2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "850498813453-lo4rr0e25vhgvqa6tjncfs5mp4f10r7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vhuHelpsMap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
