@@ -27,6 +27,7 @@ class SOSPage extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

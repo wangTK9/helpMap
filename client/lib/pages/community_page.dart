@@ -27,6 +27,7 @@ class CommunityPage extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      backgroundColor: Colors.white, // Thêm màu nền trắng cho Scaffold
     );
   }
 }

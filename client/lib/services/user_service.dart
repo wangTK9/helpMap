@@ -1,5 +1,3 @@
-// lib/services/user_service.dart
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -8,37 +6,73 @@ class UserService {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   // Lưu hoặc cập nhật thông tin người dùng vào Realtime Database
-  Future<void> saveUserInfo(
-      String name, String phone, String address, String avatarUrl) async {
+  Future<void> saveUserInfo({
+    String? name,
+    String? phone,
+    String? address,
+    String? avatarUrl,
+    String? bloodType,
+    String? medicalHistory,
+    String? allergies,
+    String? medications,
+    String? disabilities,
+    String? medicalDevices,
+    String? specialNotes,
+  }) async {
     try {
       User? user = _auth.currentUser;
       if (user != null) {
         String userId = user.uid;
-
-        // Lấy tham chiếu đến vị trí người dùng trong Realtime Database
         DatabaseReference userRef = _database.ref('users/$userId');
 
-        // Kiểm tra xem người dùng đã có thông tin trong database chưa
+        // Lấy dữ liệu người dùng từ database
         DatabaseEvent event = await userRef.once();
         DataSnapshot snapshot = event.snapshot;
 
+        // Nếu chưa có dữ liệu, lấy từ FirebaseAuth
+        String defaultName = user.displayName ?? "Người dùng";
+        String defaultEmail = user.email ?? "";
+        String defaultAvatar =
+            user.photoURL ?? "assets/images/avatar-default.jpg";
+
+        // Dữ liệu mới để cập nhật
+        Map<String, String> userData = {
+          'name':
+              name ?? snapshot.child('name').value?.toString() ?? defaultName,
+          'email': defaultEmail,
+          'phone': phone ?? snapshot.child('phone').value?.toString() ?? '',
+          'address':
+              address ?? snapshot.child('address').value?.toString() ?? '',
+          'avatar': avatarUrl ??
+              snapshot.child('avatar').value?.toString() ??
+              defaultAvatar,
+          'bloodType':
+              bloodType ?? snapshot.child('bloodType').value?.toString() ?? '',
+          'medicalHistory': medicalHistory ??
+              snapshot.child('medicalHistory').value?.toString() ??
+              '',
+          'allergies':
+              allergies ?? snapshot.child('allergies').value?.toString() ?? '',
+          'medications': medications ??
+              snapshot.child('medications').value?.toString() ??
+              '',
+          'disabilities': disabilities ??
+              snapshot.child('disabilities').value?.toString() ??
+              '',
+          'medicalDevices': medicalDevices ??
+              snapshot.child('medicalDevices').value?.toString() ??
+              '',
+          'specialNotes': specialNotes ??
+              snapshot.child('specialNotes').value?.toString() ??
+              '',
+        };
+
+        // Nếu chưa có dữ liệu, tạo mới; nếu có, cập nhật
         if (snapshot.exists) {
-          // Nếu người dùng đã có thông tin, cập nhật thông tin
-          await userRef.update({
-            'name': name,
-            'phone': phone,
-            'address': address,
-            'avatar': avatarUrl,
-          });
+          await userRef.update(userData);
           print("Thông tin người dùng đã được cập nhật.");
         } else {
-          // Nếu người dùng chưa có thông tin, tạo mới
-          await userRef.set({
-            'name': name,
-            'phone': phone,
-            'address': address,
-            'avatar': avatarUrl,
-          });
+          await userRef.set(userData);
           print("Thông tin người dùng đã được lưu.");
         }
       }
@@ -53,25 +87,37 @@ class UserService {
       User? user = _auth.currentUser;
       if (user != null) {
         String userId = user.uid;
-
-        // Lấy tham chiếu đến vị trí người dùng trong Realtime Database
         DatabaseReference userRef = _database.ref('users/$userId');
 
-        // Lấy dữ liệu của người dùng
         DatabaseEvent event = await userRef.once();
         DataSnapshot snapshot = event.snapshot;
 
         if (snapshot.exists) {
-          // Nếu có dữ liệu, trả về dữ liệu dưới dạng Map
-          Map<String, String> userInfo = {
-            'name': snapshot.child('name').value.toString(),
-            'phone': snapshot.child('phone').value.toString(),
-            'address': snapshot.child('address').value.toString(),
-            'avatar': snapshot.child('avatar').value.toString(),
+          return {
+            'name': snapshot.child('name').value?.toString() ??
+                user.displayName ??
+                "Người dùng",
+            'email':
+                snapshot.child('email').value?.toString() ?? user.email ?? "",
+            'phone': snapshot.child('phone').value?.toString() ?? '',
+            'address': snapshot.child('address').value?.toString() ?? '',
+            'avatar': snapshot.child('avatar').value?.toString() ??
+                user.photoURL ??
+                "assets/images/avatar-default.jpg",
+            'bloodType': snapshot.child('bloodType').value?.toString() ?? '',
+            'medicalHistory':
+                snapshot.child('medicalHistory').value?.toString() ?? '',
+            'allergies': snapshot.child('allergies').value?.toString() ?? '',
+            'medications':
+                snapshot.child('medications').value?.toString() ?? '',
+            'disabilities':
+                snapshot.child('disabilities').value?.toString() ?? '',
+            'medicalDevices':
+                snapshot.child('medicalDevices').value?.toString() ?? '',
+            'specialNotes':
+                snapshot.child('specialNotes').value?.toString() ?? '',
           };
-          return userInfo;
         } else {
-          // Nếu không có dữ liệu, trả về Map rỗng
           return {};
         }
       } else {

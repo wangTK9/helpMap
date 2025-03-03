@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './layouts/main_layout.dart';
 import './pages/login_screen.dart';
+import './pages/edit_profile_page.dart';
+import './pages/health_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +41,10 @@ class MyApp extends StatelessWidget {
           ? LoginScreen()
           : const MainLayout(),
       routes: {
-        "/home": (context) => const MainLayout(), // Cập nhật route cho Home
+        "/home": (context) => const MainLayout(),
+        '/edit-profile': (context) => EditProfilePage(),
+        '/login': (context) => LoginScreen(),
+        '/health': (context) => HealthDetailsScreen(),
       },
     );
   }
