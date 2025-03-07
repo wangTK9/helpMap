@@ -1,0 +1,2 @@
+E:/NCKK2025/helpMap/client/android/app/.cxx/Debug/v5mg263w/x86_64/CMakeFiles/edit_cache.dir
+E:/NCKK2025/helpMap/client/android/app/.cxx/Debug/v5mg263w/x86_64/CMakeFiles/rebuild_cache.dir
